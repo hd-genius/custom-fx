@@ -1,4 +1,4 @@
-package me.hdenius.customfx;
+package me.hdgenius.customfx;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

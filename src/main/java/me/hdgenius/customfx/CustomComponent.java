@@ -1,4 +1,4 @@
-package me.hdenius.customfx;
+package me.hdgenius.customfx;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
