@@ -4,19 +4,27 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
+import java.net.URL;
 
 public abstract class CustomComponent extends Pane {
     protected CustomComponent() {
-        final Class<? extends CustomComponent> componentClass = this.getClass();
-        final ComponentView annotation = componentClass.getAnnotation(ComponentView.class);
-        final FXMLLoader fxmlLoader = new FXMLLoader(componentClass.getResource(annotation.value()));
+        loadContent(getContentResource());
+    }
+
+    private URL getContentResource() {
+        final ComponentView annotation = getClass().getAnnotation(ComponentView.class);
+        return getClass().getResource(annotation.value());
+    }
+
+    private void loadContent(final URL resource) {
+        final FXMLLoader fxmlLoader = new FXMLLoader(resource);
         fxmlLoader.setController(this);
         fxmlLoader.setRoot(this);
 
         try {
             fxmlLoader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
+        } catch (final IOException exception) {
+            throw new InitializationException(exception, String.format("Encountered an IOException while trying to load the content for %s", getClass().getName()));
         }
     }
 }
