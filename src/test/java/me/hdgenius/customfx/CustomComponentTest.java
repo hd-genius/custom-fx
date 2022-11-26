@@ -3,10 +3,15 @@ package me.hdgenius.customfx;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
 
 
 public class CustomComponentTest {
@@ -18,8 +23,11 @@ public class CustomComponentTest {
     @Test
     @DisplayName("test that the view FXML content is attached under the component")
     public void testThatViewIsLoaded() {
-        final CustomComponent instance = new CustomComponentImpl();
-        Assertions.assertTrue(instance.getChildren().size() > 0);
+        final CustomComponentImpl instance = new CustomComponentImpl();
+        Assertions.assertTrue(instance.getChildren().stream()
+                .anyMatch(child -> child instanceof Button));
+        Assertions.assertTrue(instance.getChildren().stream()
+                .anyMatch(child -> child instanceof TextField));
     }
 
     @Test
@@ -32,7 +40,6 @@ public class CustomComponentTest {
                 .map(child -> (Button)child)
                 .orElseThrow();
         button.getOnMouseClicked().handle(null);
-        Assertions.assertTrue(true);
     }
 
     @Test
