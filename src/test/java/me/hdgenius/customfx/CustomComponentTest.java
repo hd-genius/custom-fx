@@ -2,12 +2,17 @@ package me.hdgenius.customfx;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
 
 
 public class CustomComponentTest {
@@ -38,9 +43,14 @@ public class CustomComponentTest {
         button.getOnMouseClicked().handle(null);
     }
 
-//    @Test
+    @Test
     @DisplayName("test that the component can be rendered from an FXML file")
-    public void testComponentRenderedInFxml() {}
+    public void testComponentRenderedInFxml() throws IOException {
+        final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/test-component-render.fxml"));
+        final Pane pane = new Pane();
+        fxmlLoader.setRoot(pane);
+        fxmlLoader.load();
+    }
 
 //    @Test
     @DisplayName("test that the component throws an InitializationException when the fxml view cannot be read")
@@ -59,25 +69,3 @@ public class CustomComponentTest {
     }
 }
 
-@ComponentView("/test-component.fxml")
-class CustomComponentImpl extends CustomComponent {
-    CustomComponentImpl() {
-        super();
-    }
-
-    @FXML
-    public void onClick() {}
-}
-
-@ComponentView("/test-invalid-component.fxml")
-class CustomComponentInvalidFxmlPath extends CustomComponent {
-    CustomComponentInvalidFxmlPath() {
-        super();
-    }
-}
-
-class CustomComponentNoFxml extends CustomComponent {
-    CustomComponentNoFxml() {
-        super();
-    }
-}
