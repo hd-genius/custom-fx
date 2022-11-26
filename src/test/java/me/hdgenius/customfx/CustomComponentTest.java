@@ -55,17 +55,17 @@ public class CustomComponentTest {
     }
 
 //    @Test
-    @DisplayName("test that the component throws an InitializationException when the fxml view cannot be read")
+    @DisplayName("test that an InitializationException is thrown when the fxml view cannot be read")
     public void testFxmlReadError() {}
 
     @Test
-    @DisplayName("test that the component throws an ConfigurationException when the path to the fxml file is invalid")
+    @DisplayName("test that a ConfigurationException is thrown when the path to the fxml file is invalid")
     public void testInvalidFxmlPath() {
         Assertions.assertThrows(ConfigurationException.class, CustomComponentInvalidFxmlPath::new);
     }
 
     @Test
-    @DisplayName("test that the component throws an ConfigurationException when the ComponentView annotation is not attached")
+    @DisplayName("test that a ConfigurationException is thrown when the ComponentView annotation is not attached")
     public void testNoViewError() {
         Assertions.assertThrows(ConfigurationException.class, CustomComponentNoFxml::new);
     }
