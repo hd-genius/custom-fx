@@ -13,6 +13,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
+import static org.mockito.Mockito.*;
+
 
 public class CustomComponentTest {
     @BeforeAll
@@ -33,13 +35,14 @@ public class CustomComponentTest {
     @Test
     @DisplayName("test that component methods can be called from the view's FXML")
     public void testMethodsFromFxml() {
-        final CustomComponent instance = new CustomComponentImpl();
+        final CustomComponentImpl instance = spy(CustomComponentImpl.class);
         final Button button = instance.getChildren().stream()
                 .filter(child -> child instanceof Button)
                 .findFirst()
                 .map(child -> (Button)child)
                 .orElseThrow();
         button.getOnMouseClicked().handle(null);
+        verify(instance).onClick();
     }
 
     @Test
