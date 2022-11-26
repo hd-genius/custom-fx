@@ -34,8 +34,6 @@ public abstract class CustomComponent extends Pane {
         fxmlLoader.setController(this);
         fxmlLoader.setRoot(this);
 
-        System.out.println(resource);
-
         try {
             fxmlLoader.load();
         } catch (final IOException exception) {
