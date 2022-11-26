@@ -6,6 +6,10 @@ import javafx.scene.layout.Pane;
 import java.io.IOException;
 import java.net.URL;
 
+/**
+ * The base class for custom components. Subclasses must call
+ * this class's constructor and have the ComponentView annotation.
+ */
 public abstract class CustomComponent extends Pane {
     protected CustomComponent() {
         loadContent(getContentResource());
