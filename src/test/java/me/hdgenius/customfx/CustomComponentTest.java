@@ -8,10 +8,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
 
 
 public class CustomComponentTest {
@@ -42,9 +38,25 @@ public class CustomComponentTest {
         button.getOnMouseClicked().handle(null);
     }
 
-    @Test
+//    @Test
     @DisplayName("test that the component can be rendered from an FXML file")
     public void testComponentRenderedInFxml() {}
+
+//    @Test
+    @DisplayName("test that the component throws an InitializationException when the fxml view cannot be read")
+    public void testFxmlReadError() {}
+
+    @Test
+    @DisplayName("test that the component throws an ConfigurationException when the path to the fxml file is invalid")
+    public void testInvalidFxmlPath() {
+        Assertions.assertThrows(ConfigurationException.class, CustomComponentInvalidFxmlPath::new);
+    }
+
+    @Test
+    @DisplayName("test that the component throws an ConfigurationException when the ComponentView annotation is not attached")
+    public void testNoViewError() {
+        Assertions.assertThrows(ConfigurationException.class, CustomComponentNoFxml::new);
+    }
 }
 
 @ComponentView("/test-component.fxml")
@@ -55,4 +67,17 @@ class CustomComponentImpl extends CustomComponent {
 
     @FXML
     public void onClick() {}
+}
+
+@ComponentView("/test-invalid-component.fxml")
+class CustomComponentInvalidFxmlPath extends CustomComponent {
+    CustomComponentInvalidFxmlPath() {
+        super();
+    }
+}
+
+class CustomComponentNoFxml extends CustomComponent {
+    CustomComponentNoFxml() {
+        super();
+    }
 }

@@ -13,13 +13,28 @@ public abstract class CustomComponent extends Pane {
 
     private URL getContentResource() {
         final ComponentView annotation = getClass().getAnnotation(ComponentView.class);
-        return getClass().getResource(annotation.value());
+        if (annotation == null) {
+            throw new ConfigurationException("No ComponentView annotation was found for the class" + getClass().getCanonicalName());
+        }
+        final String contentPath = annotation.value();
+        final URL resource = getClass().getResource(contentPath);
+
+        if (resource == null) {
+            throw new ConfigurationException(String.format(
+                    "The view resource, %s, does not exist for the component %s",
+                    contentPath,
+                    getClass().getCanonicalName()));
+        }
+
+        return resource;
     }
 
     private void loadContent(final URL resource) {
         final FXMLLoader fxmlLoader = new FXMLLoader(resource);
         fxmlLoader.setController(this);
         fxmlLoader.setRoot(this);
+
+        System.out.println(resource);
 
         try {
             fxmlLoader.load();
