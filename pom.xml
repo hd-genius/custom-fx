@@ -12,9 +12,6 @@
     <url>https://hdgenius.me/projects/custom-fx</url>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.9.0</junit.version>
         <maven.javadoc.version>3.4.1</maven.javadoc.version>
         <javafx.version>17.0.1</javafx.version>
