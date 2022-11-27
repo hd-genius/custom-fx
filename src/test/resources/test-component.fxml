@@ -2,6 +2,6 @@
 <?import javafx.scene.control.TextField?>
 
 <fx:root type="me.hdgenius.customfx.CustomComponent" xmlns:fx="http://javafx.com/fxml">
-    <TextField fx:id="textField"/>
+    <TextField />
     <Button text="Click Me" onMouseClicked="#onClick" />
 </fx:root>
